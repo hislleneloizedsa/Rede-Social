@@ -1,21 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   const likeBtn = document.querySelector(".like-btn");
   const postMedia = document.querySelector(".post-media");
-  
+
   if (!likeBtn) return;
 
   const likesCountSpan = likeBtn.querySelector(".likes-count");
   const bookmarkBtn = document.querySelector(".bookmark-btn");
 
   let isLiked = false;
-  let baseLikes = 0; // Inicia em 0
+  let baseLikes = 0;
 
-  // Garante a exibição inicial em 0
   if (likesCountSpan) {
     likesCountSpan.textContent = "0";
   }
 
-  // Formatação de números grandes (ex: 1.2K)
   function formatLikes(num) {
     if (num >= 1000) {
       return (num / 1000).toFixed(1) + "K";
@@ -23,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return num.toString();
   }
 
-  // Animação de pulso no ícone SVG
   function animateSvg(element) {
     const svg = element.querySelector("svg");
     if (svg) {
@@ -35,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Função para adicionar curtida
   function addLike() {
     baseLikes++;
     isLiked = true;
@@ -48,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
     animateSvg(likeBtn);
   }
 
-  // Clique no botão de curtida (Alterna curtir / remover curtida)
   likeBtn.addEventListener("click", (e) => {
     e.stopPropagation();
 
@@ -56,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isLiked = false;
       baseLikes = Math.max(0, baseLikes - 1);
       likeBtn.classList.remove("liked");
-      
+
       if (likesCountSpan) {
         likesCountSpan.textContent = formatLikes(baseLikes);
       }
@@ -65,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Clique na imagem principal (Sempre soma novas curtidas)
   if (postMedia) {
     postMedia.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -73,10 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Botão de salvar (Bookmark)
   if (bookmarkBtn) {
     let isBookmarked = false;
-    
+
     bookmarkBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       isBookmarked = !isBookmarked;
